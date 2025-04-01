@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "download-cli": "^1.1.1",
+    "ol": "^10.4.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
@@ -11,7 +12,12 @@
     "dev": "vite",
     "build": "vite build",
     "test": "tsc --noEmit && prettier --check .",
-    "prepare": "husky"
+    "prepare": "husky",
+    "db:counties": "npm run db:counties:download && npm run db:counties:import",
+    "db:counties:download": "download --extract --out tmp/ https://nedlasting.geonorge.no/geonorge/Basisdata/Fylker2023/PostGIS/Basisdata_0000_Norge_25833_Fylker2023_PostGIS.zip",
+    "db:counties:import": "docker exec -i /postgis /usr/bin/psql --user postgres < tmp/Basisdata_0000_Norge_25833_Fylker_PostGIS.sql",
+    "start": "cd server && npm start",
+    "postinstall": "cd server && npm install --include=dev"
   },
   "name": "kws11",
   "version": "1.0.0",
