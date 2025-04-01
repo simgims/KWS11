@@ -39,5 +39,5 @@ app.get("/api/skoler", async (c) => {
 app.use("*", serveStatic({ root: "../dist" }));
 serve({
   fetch: app.fetch,
-  port: process.env.port ? parseInt(process.env.port) : 3000,
+  port: process.env.PORT ? parseInt(process.env.PORT) : 3000,
 });
