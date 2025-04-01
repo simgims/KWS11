@@ -17,7 +17,12 @@
     "db:counties:download": "download --extract --out tmp/ https://nedlasting.geonorge.no/geonorge/Basisdata/Fylker2023/PostGIS/Basisdata_0000_Norge_25833_Fylker2023_PostGIS.zip",
     "db:counties:import": "docker exec -i /postgis /usr/bin/psql --user postgres < tmp/Basisdata_0000_Norge_25833_Fylker_PostGIS.sql",
     "start": "cd server && npm start",
-    "postinstall": "cd server && npm install --include=dev"
+    "postinstall": "cd server && npm install --include=dev",
+    "db:heroku": "npm run db:heroku:postgis && npm run db:schools:heroku && npm run db:fylker2023:heroku && npm run db:prepare:heroku",
+    "db:heroku:postgis": "echo 'create extension postgis' | psql ",
+    "db:schools:heroku": "npm run db:schools:download && psql  < tmp/Befolkning_0000_Norge_25833_Grunnskoler_PostGIS.sql",
+    "db:fylker2023:heroku": "npm run db:fylker2023:download && psql  < tmp/Basisdata_0000_Norge_25833_Fylker_PostGIS.sql",
+    "db:prepare:heroku": "psql  < scripts/prepare-db.sql"
   },
   "name": "kws11",
   "version": "1.0.0",
